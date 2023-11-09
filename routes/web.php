@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', 'App\Http\Controllers\DirectoriesController@splash_page');
+Route::get('/', [App\Http\Controllers\DirectoriesController::class, 'splash_page']);
 
 // Route::get('/home', 'HomeController@index');
 

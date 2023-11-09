@@ -27,60 +27,54 @@
 	<x-slot:main>
 
 		@foreach($buildings as $build) 
-		
 			<div class="flex flex-col  sm:flex-row sm:pl-6 align-top  align-text-top">
-
+					
 				<!-- image -->	
 				<div class="w-[150px] pr-6 shrink-0">
 					@if(isset($build->akimage))
 						@foreach($build->akimage as $img)
 							@if($loop->first)
-								<img  src="{{$img->imgpath}}/{{$img->imgname}}.{{$img->imgextension}}" alt="{{$img->alt }}" width="100%" /><br /><br />
+							<strong><a href="{{ url('buildings', [$build->buildid]) }}"><img  src="{{$img->imgpath}}/{{$img->imgname}}.{{$img->imgextension}}" alt="{{$img->alt }}" width="100%" /></a><br /><br />
 							@endif
 						@endforeach
 					@endif
 					@if(isset($build->plan) )
 						@foreach($build->plan as $plan)
 							@if($loop->first)
-								{!!$plan->thumbs!!}
+							<strong><a href="{{ url('buildings', [$build->buildid]) }}">{!!$plan->thumbs!!}</a>
 							@endif
 						@endforeach
 
 					@else
 						&nbsp;
 					@endif
-					
-				</div>
+				</div>		
 
 				<!-- info ----------->
-				
 				<div class="max-w-[620px] grow ">
+						
 				<!-- building -->
-				<strong><a href="{{ route('buildings.show', [$build->buildid]) }}">{{ $build->buildname }}</a></strong>
-						Client: {{ $build->client }},
+					<strong><a href="{{ url('buildings', [$build->buildid]) }}">{{ $build->buildname }}</a></strong>
+					Client: {{ $build->client }},
 						@if($build->address)
 							{!! $address = addressString($build->address->suite,$build->address->lot_number,$build->address->stnmbr,$build->address->street,$build->address->suburb,$build->address->postcode,$build->address->state); !!}
 						@endif
-					
-						<br /><br />
 
-						<!-- @if (Auth::check())<br /><a href="{{url('Buildings/edit', [$build->buildid])}}">( Edit )</a>@endif -->
-					</p>
-
+					<br /><br />
+					<!-- @if (Auth::check())<br /><a href="{{url('Buildings/edit', [$build->buildid])}}">( Edit )</a>@endif -->				
 				</div>
-			</div>
-				
+			</div>		
 		@endforeach
 		
-			{!! $buildings->links() !!}
-			
-			</x-slot:main>
+	{!! $buildings->links() !!}
 
-			<x-slot:search>
+</x-slot:main>
 
-				<span class="invisible sm:visible"]>@include('includes/searches', ['tble' => 'SearchBuildings'])</span>
+<x-slot:search>
 
-			</x-slot:search>
+	<span class="invisible sm:visible"]>@include('includes/searches', ['tble' => 'SearchBuildings'])</span>
+
+</x-slot:search>
 
 <!--footer------------------->
 
